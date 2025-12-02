@@ -18,6 +18,8 @@ form.addEventListener("submit", function (event) {
 
     const isUsernacmeValid = validateUsername();
     const isEmailVaild = validateEmail();
+    const isPasswordValid = validatePassword();
+    
     
 
     if (!isUsernacmeValid) {
@@ -25,6 +27,9 @@ form.addEventListener("submit", function (event) {
         return
     }else if (!isEmailVaild){
         email.focus();
+        return
+    }else if(!isPasswordValid){
+        password.focus();
         return
     }
 
@@ -54,6 +59,16 @@ function validateUsername() {
     return true;
   }
  }
+
+function validatePassword() {
+  if (password.value.length < 8) {
+    setError(password, "Password must be at least 8 characters");
+    return false;
+  } else {
+    setSuccess(password);
+    return true;
+  }
+}
 
 
 function setError(element, message) {
