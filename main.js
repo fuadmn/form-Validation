@@ -1,45 +1,49 @@
 
-const Form =  document.querySelector("#registerionForm");
-const username =  document.querySelector("#username");
-const email =  document.querySelector("#email");
-const password =  document.querySelector("#password");
-const confirmPassword =  document.querySelector("#confirmPassword");
-const error =  document.querySelector("#error");
-const success =  document.querySelector("#success");
+const form = document.querySelector("#registerionForm");
 
-Form.addEventListener("submit", function(event){
- event.preventDefault();
+const username = document.querySelector("#username");
+const email = document.querySelector("#email");
+const password = document.querySelector("#password");
+const confirmPassword = document.querySelector("#confirmPassword");
 
- error.textContent = "";
- error.textContent = "";
+const error = document.querySelector("#error");
+const success = document.querySelector("#success");
 
- const isUsername = VUsername();
- 
- if(!isUsername){
-    username.focus();
-    return
- }
- 
- success.textContent = "SuccessFully!"
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    success.textContent = "";
+    error.textContent = "";
+
+    const isUsernacmeValid = validateUsername();
+
+    if (!isUsernacmeValid) {
+        username.focus();
+        return
+    }
+
+    success.textContent = "Registration successfully!";
+
 })
 
-function VUsername(){
-   if(username.value === ""){
-    sError(username,"username is required");
-    return false
-   }else{
-    sSuccess(username);
-    return true
-   }
+function validateUsername() {
+    if (username.value === "") {
+        setError(username, "Username is required");
+        return
+    } else {
+        setSuccess(username);
+        return true;
+    }
 }
 
-  function sError(element,massege){
-   element.classList.add("invalid");
-   element.classList.remove("valid");
-   error.textContent = massege;
+function setError(element, message) {
+    element.classList.add("invalid");
+    element.classList.remove("valid");
+    error.textContent = message;
 }
 
-  function sSuccess(element){
-   element.classList.add("valid");
-   element.classList.remove("invalid");
+function setSuccess(element) {
+    element.classList.add("valid");
+    element.classList.remove("invalid");
 }
