@@ -19,6 +19,7 @@ form.addEventListener("submit", function (event) {
     const isUsernacmeValid = validateUsername();
     const isEmailVaild = validateEmail();
     const isPasswordValid = validatePassword();
+    const isConfirmPassword = validConfirmPassword();
     
     
 
@@ -31,6 +32,9 @@ form.addEventListener("submit", function (event) {
     }else if(!isPasswordValid){
         password.focus();
         return
+    } else if (!isConfirmPassword) {
+       confirmPassword.focus();
+       return;
     }
 
     success.textContent = "Registration successfully!";
@@ -70,6 +74,20 @@ function validatePassword() {
   }
 }
 
+function validConfirmPassword() {
+  if (password.value.trim() === "" || confirmPassword.value.trim() === "") {
+    setError(confirmPassword, "Password do not match");
+    return false;
+  }
+
+  if (password.value !== confirmPassword.value) {
+    setError(confirmPassword, "Password do not match");
+    return false;
+  } else {
+    setSuccess(confirmPassword);
+    return true;
+  }
+}
 
 function setError(element, message) {
     element.classList.add("invalid");
